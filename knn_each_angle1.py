@@ -17,6 +17,8 @@ angles_gallery = ['000', '018', '036', '054', '072', '090', '108', '126', '144',
 #angles_gallery = ['090']
 angles_probe = angles_gallery
 path1 = '/content/drive/MyDrive/Ganesh/VTGAN/generated/20181221/imgs/'
+ix = 0
+iy = 0
 for g_ang in angles_gallery:
     path2 = path1 + g_ang + '/'
     print(path2)
@@ -49,7 +51,7 @@ for g_ang in angles_gallery:
     print(int(min(X.shape)*0.20))
     pca_model.fit(X)
     X = pca_model.transform(X)
-    print(X.shape)
+    # print(X.shape)
     lda_model = LinearDiscriminantAnalysis(n_components=45)
     lda_model.fit(X, y)
     X = lda_model.transform(X)
@@ -60,7 +62,7 @@ for g_ang in angles_gallery:
 
     
     angles_probe = ['000', '018', '036', '054', '072', '090', '108', '126', '144', '162', '180']
-    #angles_probe = ['072', '090', '108',]
+    # angles_probe = ['072', '090', '108',]
     for p_ang in angles_probe:
         path2 = path1 + g_ang + '/'
         # print(path2)
@@ -127,6 +129,14 @@ for g_ang in angles_gallery:
         for num in range(0,len(testy)):
             if testy[num] == predy[num]:
                 count1 = count1+1
+        result[ix][iy] = (float(count1)/float(len(predy)))*100
+        iy += 1
         print('Accuracy: ', (float(count1)/float(len(predy)))*100, '%')
         print('Prob angle: ', p_ang)
         print('Gallary angle: ', g_ang)
+        print('for nm to nm condition or case')
+    ix += 1
+print(result)
+print(np.mean(result))
+print(np.mean(result, axis=0))
+np.savetxt("/content/drive/MyDrive/Ganesh/VTGAN/generated/view_analysis_for_nm2nm.csv", result)
