@@ -118,13 +118,8 @@ for g_ang in angles_gallery:
                 unique_cl = np.asarray(unique_cl)
                 # print('unique_cl: ',unique_cl) 
                 # index = np.array(index).reshape(1, len(sum_prob))
-                predy.append(int(unique_cl[index]))             
-                
-                    
-                
+                predy.append(int(unique_cl[index]))  
 
-        # print('testy: ', np.asarray(testy))
-        # print('predy: ', np.asarray(predy))
         count1 = 0
         for num in range(0,len(testy)):
             if testy[num] == predy[num]:
