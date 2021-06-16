@@ -63,7 +63,7 @@ for g_ang in angles_gallery:
     #angles_probe = ['072', '090', '108',]
     for p_ang in angles_probe:
         path2 = path1 + g_ang + '/'
-        print(path2)
+        # print(path2)
         subjects = os.listdir(path2)
         subjectsNumber = len(subjects)
         print(subjectsNumber)
@@ -72,6 +72,7 @@ for g_ang in angles_gallery:
         predy = []
         for number1 in range(pid,subjectsNumber):
             path3 = path2 + subjects[number1] + '/'
+            # print(path3)
             for sequence in ['nm-05', 'nm-06']:
                 path4 = path3 + sequence + '/' + p_ang + '/'
                 poses = os.listdir(path4)
@@ -104,14 +105,28 @@ for g_ang in angles_gallery:
                         if unique_cl[number2]==cl[number3]:
                             prob = prob + pb[number3]
                     sum_prob.append(prob)
-                index = np.where(sum_prob == np.amax(sum_prob)) 
-                unique_cl = np.asarray(unique_cl)               
-                predy.append(int(unique_cl[index]))
+                # print('sum_prob: ',sum_prob) 
+                maxval = np.amax(sum_prob)
+                index = -1
+                for num2 in range(0,len(sum_prob)):
+                    if sum_prob[num2] == maxval:
+                        index = num2
+                # index = np.where(sum_prob == np.amax(sum_prob)) 
+                # print('index: ',index)               
+                unique_cl = np.asarray(unique_cl)
+                # print('unique_cl: ',unique_cl) 
+                # index = np.array(index).reshape(1, len(sum_prob))
+                predy.append(int(unique_cl[index]))             
+                
+                    
+                
 
-        print('testy: ', np.asarray(testy))
-        print('predy: ', np.asarray(predy))
+        # print('testy: ', np.asarray(testy))
+        # print('predy: ', np.asarray(predy))
         count1 = 0
         for num in range(0,len(testy)):
             if testy[num] == predy[num]:
                 count1 = count1+1
         print('Accuracy: ', (float(count1)/float(len(predy)))*100, '%')
+        print('Prob angle: ', p_ang)
+        print('Gallary angle: ', g_ang)
