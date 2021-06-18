@@ -126,6 +126,8 @@ for g_ang in angles_gallery:
                 count1 = count1+1
         result[ix][iy] = (float(count1)/float(len(predy)))*100
         iy += 1
+        if iy==11:
+            iy = 0
         print('Accuracy: ', (float(count1)/float(len(predy)))*100, '%')
         print('Prob angle: ', p_ang)
         print('Gallary angle: ', g_ang)
